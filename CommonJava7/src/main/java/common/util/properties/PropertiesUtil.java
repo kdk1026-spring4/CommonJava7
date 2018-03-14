@@ -22,7 +22,7 @@ public class PropertiesUtil {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
 
-	private static final String PROP_CLASS_PATH = "/properties" + NioFileUtil.FOLDER_SEPARATOR;
+	private static final String PROP_CLASS_PATH = "properties" + NioFileUtil.FOLDER_SEPARATOR;
 	private static final String PROP_WEB_INF_PATH = "/WEB-INF" + NioFileUtil.FOLDER_SEPARATOR + "properties/";
 	
 	/**
@@ -35,23 +35,13 @@ public class PropertiesUtil {
 	 */
 	public static Properties getPropertiesClasspath(String propFileName) {
 		Properties prop = new Properties();
-		InputStream is = null;
 		String fileNmae = PROP_CLASS_PATH + propFileName;
 
-		try {
-			is = PropertiesUtil.class.getClassLoader().getResourceAsStream(fileNmae);
+		try ( InputStream is = PropertiesUtil.class.getClassLoader().getResourceAsStream(fileNmae) ) {
 			prop.load(is);
 			
 		} catch (IOException e) {
-			logger.error("getPropertiesClasspath IOException", e);
-		} finally {
-			try {
-				if (is != null) {
-					is.close();
-				}
-			} catch (IOException e) {
-				logger.error("getPropertiesClasspath IOException", e);
-			}
+			logger.error("", e);
 		}
 		
 		return prop;
@@ -75,7 +65,7 @@ public class PropertiesUtil {
 			prop.load(is);
 			
 		} catch (IOException e) {
-			logger.error("getPropertiesWebInf IOException", e);
+			logger.error("", e);
 		}
 		
 		return prop;
@@ -113,7 +103,7 @@ public class PropertiesUtil {
 				prop.store(os, null);
 				
 			} catch (IOException e) {
-				logger.error("saveProperties IOException", e);
+				logger.error("", e);
 			}
 		}
 	}
