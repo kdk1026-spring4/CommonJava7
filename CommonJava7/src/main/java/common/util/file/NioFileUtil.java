@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -12,6 +13,8 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.FileTime;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -238,6 +241,84 @@ public class NioFileUtil {
 		} catch (IOException e) {
 			logger.error("", e);
 		}
+	}
+	
+	/**
+	 * 해당 경로의 모든 파일 및 디렉토리를 반환
+	 * @param path
+	 * @return
+	 */
+	public static List<String> getAllFileList(String filePath) {
+		List<String> listFiles = new ArrayList<>();
+		Path path = Paths.get(filePath);
+		
+		if ( Files.isDirectory(path) ) {
+			try ( DirectoryStream<Path> dir = Files.newDirectoryStream(path) ) {
+				for (Path file : dir) {
+					listFiles.add(file.getFileName().toString());
+				}
+				
+			} catch (IOException e) {
+				logger.error("", e);
+			}
+			return listFiles;
+		}
+		
+		return new ArrayList<>();
+	}
+	
+	/**
+	 * 해당 경로의 파일 반환
+	 * @param path
+	 * @return
+	 */
+	public static List<String> getFileList(String filePath) {
+		List<String> listFiles = new ArrayList<>();
+		Path path = Paths.get(filePath);
+		
+		if ( Files.isDirectory(path) ) {
+			try ( DirectoryStream<Path> dir = Files.newDirectoryStream(path) ) {
+				for (Path file : dir) {
+					if ( !Files.isDirectory(file) ) {
+						listFiles.add(file.getFileName().toString());
+					}
+				}
+				
+			} catch (IOException e) {
+				logger.error("", e);
+			}
+			
+		} else {
+			listFiles.add(path.getFileName().toString());
+		}
+		
+		return listFiles;
+	}
+	
+	/**
+	 * 해당 경로의 디렉토리 반환
+	 * @param path
+	 * @return
+	 */
+	public static List<String> getDirectoryList(String filePath) {
+		List<String> listFiles = new ArrayList<>();
+		Path path = Paths.get(filePath);
+		
+		if ( Files.isDirectory(path) ) {
+			try ( DirectoryStream<Path> dir = Files.newDirectoryStream(path) ) {
+				for (Path file : dir) {
+					if ( Files.isDirectory(file) ) {
+						listFiles.add(file.getFileName().toString());
+					}
+				}
+				
+			} catch (IOException e) {
+				logger.error("", e);
+			}
+			
+		}
+		
+		return listFiles;
 	}
 	
 	/**

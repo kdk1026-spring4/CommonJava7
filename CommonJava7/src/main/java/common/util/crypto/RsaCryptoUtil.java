@@ -29,7 +29,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import common.util.file.FileUtil;
+import common.util.file.NioFileUtil;
 
 /**
  * <pre>
@@ -140,7 +140,7 @@ public class RsaCryptoUtil {
 		
 		public static void savePublicKeyInFile(KeyPair keyPair, String destFilePath, String destFileName) {
 			File destPath = new File(destFilePath);
-			File destFile = new File(destFilePath + FileUtil.FOLDER_SEPARATOR + destFileName);
+			File destFile = new File(destFilePath + NioFileUtil.FOLDER_SEPARATOR + destFileName);
 			
 			if (!destPath.exists()) {
 				destPath.mkdirs();
@@ -159,7 +159,7 @@ public class RsaCryptoUtil {
 		
 		public static void savePrivateKeyInFile(KeyPair keyPair, String destFilePath, String destFileName) {
 			File destPath = new File(destFilePath);
-			File destFile = new File(destFilePath + FileUtil.FOLDER_SEPARATOR + destFileName);
+			File destFile = new File(destFilePath + NioFileUtil.FOLDER_SEPARATOR + destFileName);
 			
 			if (!destPath.exists()) {
 				destPath.mkdirs();
@@ -178,7 +178,7 @@ public class RsaCryptoUtil {
 		
 		public static void savePrivateSigInFile(String sign, String destFilePath, String destFileName) {
 			File destPath = new File(destFilePath);
-			File destFile = new File(destFilePath + FileUtil.FOLDER_SEPARATOR + destFileName);
+			File destFile = new File(destFilePath + NioFileUtil.FOLDER_SEPARATOR + destFileName);
 			
 			if ( !destPath.exists() ) {
 				destPath.mkdirs();
@@ -379,7 +379,7 @@ public class RsaCryptoUtil {
 	public static void main(String[] args) {
 		String plainText = "admin!@34";
 		
-		String sDestFilePath = new StringBuilder().append("C:").append(FileUtil.FOLDER_SEPARATOR).append("test").append(FileUtil.FOLDER_SEPARATOR).append("rsa").toString();
+		String sDestFilePath = new StringBuilder().append("C:").append(NioFileUtil.FOLDER_SEPARATOR).append("test").append(NioFileUtil.FOLDER_SEPARATOR).append("rsa").toString();
 		String sPublicKeyFileName = "public.key";
 		String sPrivateKeyFileName = "private.key";
 		String sPrivateSignFileName = "private.sig";
@@ -388,8 +388,8 @@ public class RsaCryptoUtil {
 //		SaveFile.savePublicKeyInFile(keyPair, sDestFilePath, sPublicKeyFileName);
 //		SaveFile.savePrivateKeyInFile(keyPair, sDestFilePath, sPrivateKeyFileName);
 
-		byte[] encodedPublicKey = FileUtil.convertFileToBytes(sDestFilePath + FileUtil.FOLDER_SEPARATOR + sPublicKeyFileName);
-		byte[] encodedPrivateKey = FileUtil.convertFileToBytes(sDestFilePath + FileUtil.FOLDER_SEPARATOR + sPrivateKeyFileName);
+		byte[] encodedPublicKey = NioFileUtil.convertFileToBytes(sDestFilePath + NioFileUtil.FOLDER_SEPARATOR + sPublicKeyFileName);
+		byte[] encodedPrivateKey = NioFileUtil.convertFileToBytes(sDestFilePath + NioFileUtil.FOLDER_SEPARATOR + sPrivateKeyFileName);
 		
 //		String sign = Generate.generatePrivateSign(plainText, encodedPrivateKey);
 //		SaveFile.savePrivateSigInFile(sign, sDestFilePath, sPrivateSignFileName);
@@ -398,7 +398,7 @@ public class RsaCryptoUtil {
 		String encryptText = Encrypt.encrypt(plainText, encodedPublicKey);
 		String decryptText = Decrypt.decrypt(encryptText, encodedPrivateKey);
 		
-		String sSign = FileUtil.readFile(sDestFilePath + FileUtil.FOLDER_SEPARATOR + sPrivateSignFileName);
+		String sSign = NioFileUtil.readFile(sDestFilePath + NioFileUtil.FOLDER_SEPARATOR + sPrivateSignFileName);
 		logger.debug("\n{}\n", sSign);
 		
 		boolean isVerify = verifySignature(decryptText, sSign, publicKey);

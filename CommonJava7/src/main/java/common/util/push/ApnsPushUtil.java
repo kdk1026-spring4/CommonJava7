@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import common.util.date.JodaTimeDateUtil;
-import common.util.file.FileUtil;
+import common.util.file.NioFileUtil;
 import common.util.properties.PropertiesUtil;
 import javapns.devices.Device;
 import javapns.devices.implementations.basic.BasicDevice;
@@ -33,7 +33,7 @@ public class ApnsPushUtil {
 		super();
 	}
 	
-	private static final String APNS_PROP_CLASS_PATH = "/properties" + FileUtil.FOLDER_SEPARATOR + "apns" + FileUtil.FOLDER_SEPARATOR;
+	private static final String APNS_PROP_CLASS_PATH = "/properties" + NioFileUtil.FOLDER_SEPARATOR + "apns" + NioFileUtil.FOLDER_SEPARATOR;
 	private static final String APNS_PROPERTIES_PATH = "apns/apns.properties";
 	private static final String APNS_CERTIFICATE_NAME = "APNSsslCertificateName";
 	private static final String APNS_CERTIFICATE_PWD_NAME = "APNSsslCertificatePwd";
