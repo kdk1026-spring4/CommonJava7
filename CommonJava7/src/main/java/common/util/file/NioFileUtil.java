@@ -66,7 +66,7 @@ public class NioFileUtil {
 	 * @return
 	 */
 	public static String getFileExtension(String fileName) {
-		if (fileName.lastIndexOf(EXTENSION_SEPARATOR) != -1) {
+		if (fileName.lastIndexOf(EXTENSION_SEPARATOR) == -1) {
 			return null;
 		}
 		int pos = fileName.lastIndexOf(EXTENSION_SEPARATOR);
@@ -252,7 +252,7 @@ public class NioFileUtil {
 		List<String> listFiles = new ArrayList<>();
 		Path path = Paths.get(filePath);
 		
-		if ( Files.isDirectory(path) ) {
+		if ( path.toFile().isDirectory() ) {
 			try ( DirectoryStream<Path> dir = Files.newDirectoryStream(path) ) {
 				for (Path file : dir) {
 					listFiles.add(file.getFileName().toString());
@@ -276,10 +276,10 @@ public class NioFileUtil {
 		List<String> listFiles = new ArrayList<>();
 		Path path = Paths.get(filePath);
 		
-		if ( Files.isDirectory(path) ) {
+		if ( path.toFile().isDirectory() ) {
 			try ( DirectoryStream<Path> dir = Files.newDirectoryStream(path) ) {
 				for (Path file : dir) {
-					if ( !Files.isDirectory(file) ) {
+					if ( !file.toFile().isDirectory() ) {
 						listFiles.add(file.getFileName().toString());
 					}
 				}
@@ -304,10 +304,10 @@ public class NioFileUtil {
 		List<String> listFiles = new ArrayList<>();
 		Path path = Paths.get(filePath);
 		
-		if ( Files.isDirectory(path) ) {
+		if ( path.toFile().isDirectory() ) {
 			try ( DirectoryStream<Path> dir = Files.newDirectoryStream(path) ) {
 				for (Path file : dir) {
-					if ( Files.isDirectory(file) ) {
+					if ( file.toFile().isDirectory() ) {
 						listFiles.add(file.getFileName().toString());
 					}
 				}
@@ -337,7 +337,5 @@ public class NioFileUtil {
 		
 		return bData;
 	}
-	
-	// TODO : http://tutorials.jenkov.com/java-nio/files.html
 	
 }
