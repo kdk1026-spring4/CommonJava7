@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -44,7 +43,7 @@ public class NioFileUtil {
 	 */
 	public static boolean isExistsFile(String filePath) {
 		Path path = Paths.get(filePath);
-        return Files.exists(path, LinkOption.NOFOLLOW_LINKS);
+		return path.toFile().exists();
     }
 	
 	/**
