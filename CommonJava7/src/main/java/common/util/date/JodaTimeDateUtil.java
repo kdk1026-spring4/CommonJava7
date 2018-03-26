@@ -356,7 +356,7 @@ public class JodaTimeDateUtil {
 		public static int intervalYears(String strFixDate) {
 			DateTime fixDate = DateTime.parse(strFixDate, DateTimeFormat.forPattern(YYYYMMDD));
 			DateTime targetDate = DateTime.now();
-			return Years.yearsBetween(fixDate, targetDate).toPeriod().getYears();
+			return Years.yearsBetween(targetDate, fixDate).toPeriod().getYears();
 		}
 		
 		/**
@@ -368,7 +368,7 @@ public class JodaTimeDateUtil {
 		public static int intervalMonths(String strFixDate) {
 			DateTime fixDate = DateTime.parse(strFixDate, DateTimeFormat.forPattern(YYYYMMDD));
 			DateTime targetDate = DateTime.now();
-			return Months.monthsBetween(fixDate, targetDate).toPeriod().getMonths();
+			return Months.monthsBetween(targetDate, fixDate).toPeriod().getMonths();
 		}
 		
 		/**
@@ -380,7 +380,7 @@ public class JodaTimeDateUtil {
 		public static int intervalDays(String strFixDate) {
 			DateTime fixDate = DateTime.parse(strFixDate, DateTimeFormat.forPattern(YYYYMMDD));
 			DateTime targetDate = DateTime.now();
-			return Days.daysBetween(fixDate, targetDate).toPeriod().getDays();
+			return Days.daysBetween(targetDate, fixDate).toPeriod().getDays();
 		}
 	}
 	
@@ -402,7 +402,7 @@ public class JodaTimeDateUtil {
 		public static int intervalHours(String strFixDate) {
 			DateTime fixTime = DateTime.parse(strFixDate, DateTimeFormat.forPattern(YYYYMMDDHHMMSS));
 			DateTime targetTime = DateTime.now();
-			return Hours.hoursBetween(fixTime, targetTime).toPeriod().getHours();
+			return Hours.hoursBetween(targetTime, fixTime).toPeriod().getHours();
 		}
 		
 		/**
@@ -414,7 +414,7 @@ public class JodaTimeDateUtil {
 		public static int intervalMinutes(String strFixDate) {
 			DateTime fixTime = DateTime.parse(strFixDate, DateTimeFormat.forPattern(YYYYMMDDHHMMSS));
 			DateTime targetTime = DateTime.now();
-			return Minutes.minutesBetween(fixTime, targetTime).toPeriod().getMinutes();
+			return Minutes.minutesBetween(targetTime, fixTime).toPeriod().getMinutes();
 		}
 		
 		/**
@@ -426,7 +426,7 @@ public class JodaTimeDateUtil {
 		public static int intervalSeconds(String strFixDate) {
 			DateTime fixTime = DateTime.parse(strFixDate, DateTimeFormat.forPattern(YYYYMMDDHHMMSS));
 			DateTime targetTime = DateTime.now();
-			return Seconds.secondsBetween(fixTime, targetTime).toPeriod().getSeconds();
+			return Seconds.secondsBetween(targetTime, fixTime).toPeriod().getSeconds();
 		}		
 	}
 	
