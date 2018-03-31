@@ -89,7 +89,7 @@ public class CookieUtilVer2 {
 	 * @param response
 	 * @param cookieName
 	 */
-	public static void removeCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+	public static void removeCookie(HttpServletResponse response, String cookieName) {
 		Cookie cookie = new Cookie(cookieName, null);
 		cookie.setPath("/");
 		cookie.setMaxAge(0);

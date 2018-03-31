@@ -150,7 +150,6 @@ public class RsaCryptoUtil {
 				byte[] encodedPublicKey = keyPair.getPublic().getEncoded();
 				
 				fos.write(encodedPublicKey);
-				fos.close();
 				
 			} catch (IOException e) {
 				logger.error("", e);
@@ -169,7 +168,6 @@ public class RsaCryptoUtil {
 				byte[] encodedPrivateKey = keyPair.getPrivate().getEncoded();
 				
 				fos.write(encodedPrivateKey);
-				fos.close();
 				
 			} catch (IOException e) {
 				logger.error("", e);
@@ -188,7 +186,6 @@ public class RsaCryptoUtil {
 				byte[] bData = sign.getBytes();
 				
 				fos.write(bData);
-				fos.close();
 				
 			} catch (IOException e) {
 				logger.error("", e);

@@ -528,9 +528,4 @@ public class JodaTimeDateUtil {
 		}
 	}
 	
-	public static void main(String[] args) {
-		int n = GetDayOfMonth.getLastDayOfMonth();
-		System.out.println(n);
-	}
-	
 }

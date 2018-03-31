@@ -190,7 +190,7 @@ public class HttpClientUtil {
 		 * @return
 		 */
 		public static Map<String, Object> postMap(boolean isSSL, String url, Map<String, Object> header, Map<String, Object> param, Charset charset) {
-			Map<String, Object> resMap = new HashMap<String, Object>();
+			Map<String, Object> resMap = new HashMap<>();
 			String sResponse = "";
 			
 			httpClient = getHttpClient(isSSL);
