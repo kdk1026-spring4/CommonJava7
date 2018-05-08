@@ -1,5 +1,7 @@
 package common.util.properties;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
@@ -22,9 +24,10 @@ public class CommonsConfiguration {
 	
 	/**
 	 * @param type (0: Classpath, 1 : WEB-INF)
+	 * @param request (Classpath 는 null)
 	 * @param propFileName
 	 */
-	public CommonsConfiguration(int type, String propFileName) {
+	public CommonsConfiguration(int type, HttpServletRequest request, String propFileName) {
 		Configurations configs = new Configurations();
 
 		try {
@@ -35,7 +38,8 @@ public class CommonsConfiguration {
 				sPath = CommonsConfiguration.class.getResource(PROP_CLASS_PATH + propFileName).getPath();
 				break;
 			case 1:
-				sPath = CommonsConfiguration.class.getResource(PROP_WEB_INF_PATH + propFileName).getPath();
+				String webRootPath = request.getSession().getServletContext().getRealPath("/");
+				sPath = webRootPath + PROP_WEB_INF_PATH + propFileName;
 				break;
 			default:
 				break;
@@ -45,7 +49,7 @@ public class CommonsConfiguration {
 			config = builder.getConfiguration();
 
 		} catch (ConfigurationException e) {
-			logger.error("CommonsConfiguration ConfigurationException", e);
+			logger.error("", e);
 		}		
 	}
 	
@@ -67,7 +71,7 @@ public class CommonsConfiguration {
 		try {
 			builder.save();
 		} catch (ConfigurationException e) {
-			logger.error("save ConfigurationException", e);
+			logger.error("", e);
 		}
 	}
 
