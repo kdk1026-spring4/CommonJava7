@@ -43,6 +43,7 @@ public class EncodeUtil {
 		return DatatypeConverter.parseBase64Binary(base64Data);
 	}
 
+
 	/**
 	 * <pre>
 	 * URL 인코딩
@@ -58,7 +59,7 @@ public class EncodeUtil {
 		try {
 			sRes = URLEncoder.encode(sPlain, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			logger.error("urlEncode UnsupportedEncodingException", e);
+			logger.error("", e);
 		}
 		return sRes;
 	}
@@ -78,7 +79,7 @@ public class EncodeUtil {
 		try {
 			sRes = URLEncoder.encode(sPlain, sCharsetName);
 		} catch (UnsupportedEncodingException e) {
-			logger.error("urlEncode UnsupportedEncodingException", e);
+			logger.error("", e);
 		}
 		return sRes;
 	}
@@ -98,7 +99,7 @@ public class EncodeUtil {
 		try {
 			sRes = URLDecoder.decode(sEncodedData, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			logger.error("urlDecode UnsupportedEncodingException", e);
+			logger.error("", e);
 		}
 		return sRes;
 	}
@@ -118,7 +119,7 @@ public class EncodeUtil {
 		try {
 			sRes = URLDecoder.decode(sEncodedData, sCharsetName);
 		} catch (UnsupportedEncodingException e) {
-			logger.error("urlDecode UnsupportedEncodingException", e);
+			logger.error("", e);
 		}
 		return sRes;
 	}

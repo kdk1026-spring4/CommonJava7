@@ -49,7 +49,7 @@ public class CommonsConfiguration {
 			config = builder.getConfiguration();
 
 		} catch (ConfigurationException e) {
-			logger.error("", e);
+			logger.error("CommonsConfiguration ConfigurationException", e);
 		}		
 	}
 	
@@ -71,7 +71,7 @@ public class CommonsConfiguration {
 		try {
 			builder.save();
 		} catch (ConfigurationException e) {
-			logger.error("", e);
+			logger.error("save ConfigurationException", e);
 		}
 	}
 

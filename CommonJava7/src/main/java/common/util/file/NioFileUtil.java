@@ -18,6 +18,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @since 1.7
+ */
 public class NioFileUtil {
 
 	private NioFileUtil() {
@@ -43,7 +46,7 @@ public class NioFileUtil {
 	 */
 	public static boolean isExistsFile(String filePath) {
 		Path path = Paths.get(filePath);
-		return path.toFile().exists();
+        return path.toFile().exists();
     }
 	
 	/**

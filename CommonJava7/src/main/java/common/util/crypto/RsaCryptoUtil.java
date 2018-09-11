@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -37,6 +38,9 @@ import common.util.file.NioFileUtil;
  *  - 공개키로 암호화하고, 그와 다른 비밀키로만 열 수 있는 암호화 알고리즘
  *  - RSA 기반 웹페이지 암호화 로그인
  *    > http://kwon37xi.egloos.com/4427199
+ *    
+ *  - Base64
+ *    > java 8
  * </pre>
  */
 public class RsaCryptoUtil {
@@ -47,7 +51,10 @@ public class RsaCryptoUtil {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RsaCryptoUtil.class);
 
-	private static final String CHARSET = "UTF-8";
+	/**
+	 * @since 1.7
+	 */
+	private static final String CHARSET = StandardCharsets.UTF_8.toString();
 	
 	private static final int DEFAULT_KEY_SIZE = 2048;
 	private static final String KEY_FACTORY_ALGORITHM = "RSA";
@@ -373,6 +380,7 @@ public class RsaCryptoUtil {
 		}
 	}
 	
+	/*
 	public static void main(String[] args) {
 		String plainText = "admin!@34";
 		
@@ -401,5 +409,6 @@ public class RsaCryptoUtil {
 		boolean isVerify = verifySignature(decryptText, sSign, publicKey);
 		logger.debug("\n{}\n{}\n{}", encryptText, decryptText, isVerify);
 	}
+	*/
 	
 }
