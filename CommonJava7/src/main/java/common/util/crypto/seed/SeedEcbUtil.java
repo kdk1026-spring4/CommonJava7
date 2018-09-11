@@ -29,7 +29,7 @@ public class SeedEcbUtil {
 	/**
 	 * @since 1.7
 	 */
-	public static final String UTF_8 = StandardCharsets.UTF_8.toString();
+	private static final String UTF_8 = StandardCharsets.UTF_8.toString();
 
 	/**
 	 * SEED ECB 암호화 (Base64 인코딩)
