@@ -1,14 +1,8 @@
 package common.util.sessioncookie;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CookieUtilVer2 {
 	
@@ -16,28 +10,52 @@ public class CookieUtilVer2 {
 		super();
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(CookieUtilVer2.class);
-
-	private static final String CHARSET = "UTF-8";
-
 	/**
 	 * Servlet 3.0 쿠키 설정
 	 * @param response
-	 * @param cookieName
-	 * @param cookieValue
-	 * @param maxAge
+	 * @param name
+	 * @param value
+	 * @param expiry
 	 * @param isUseJs
+	 * @param isSecure
+	 * @param domain
 	 */
-	public static void addCookie(HttpServletResponse response, String cookieName, String cookieValue, int maxAge, boolean isUseJs) {
-		Cookie cookie = new Cookie(cookieName, cookieValue);
-		cookie.setMaxAge(maxAge);
+	public static void addCookie(HttpServletResponse response, String name, String value, int expiry, boolean isSecure, boolean isUseJs, String domain) {
+		Cookie cookie = new Cookie(name, value);
+		cookie.setMaxAge(expiry);
 		cookie.setPath("/");
 		
-		if (isUseJs) {
+		cookie.setSecure(isSecure);
+		
+		if (!isUseJs) {
 			cookie.setHttpOnly(true);
 		}
 		
+		if ( (domain != null) && (domain.trim().length() > 0) ) {
+			cookie.setDomain(domain);
+		}
+		
 		response.addCookie(cookie);
+	}
+	
+	/**
+	 * cookieName 인자 값을 가지는 쿠키 가져오기
+	 * @param request
+	 * @param cookieName
+	 * @return
+	 */
+	public static Cookie getCookie(HttpServletRequest request, String cookieName) {
+		Cookie cookie = null;
+		Cookie[] cookies = request.getCookies();
+
+		for (Cookie c : cookies) {
+			if ( cookieName.equals(c.getName()) ) {
+				cookie = c;
+				break;
+			}
+		}
+
+		return cookie;
 	}
 
 	/**
@@ -46,23 +64,9 @@ public class CookieUtilVer2 {
 	 * @param cookieName
 	 * @return
 	 */
-	public static String getCookie(HttpServletRequest request, String cookieName) {
-		String cookieValue = "";
-		Cookie[] cookies = request.getCookies();
-
-		if (cookies != null && cookies.length > 0) {
-			for (int i=0; i < cookies.length; i++) {
-				if ( cookieName.equals(cookies[i].getName()) ) {
-					try {
-						cookieValue = URLDecoder.decode(cookies[i].getValue(), CHARSET);
-					} catch (UnsupportedEncodingException e) {
-						logger.error("", e);
-					}
-				}
-			}
-		}
-		
-		return cookieValue;
+	public static String getCookieValue(HttpServletRequest request, String cookieName) {
+		Cookie cookie = getCookie(request, cookieName);
+		return (cookie != null) ? cookie.getValue() : "";
 	}
 
 	/**
@@ -94,7 +98,31 @@ public class CookieUtilVer2 {
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
 		
+		if ( cookie.getSecure() ) {
+			cookie.setSecure(true);
+		}
+		
 		response.addCookie(cookie);
+	}
+	
+	/**
+	 * 쿠키 유무 확인
+	 * @param request
+	 * @param cookieName
+	 */
+	public static boolean isExist(HttpServletRequest request, String cookieName) {
+		String cookieValue = getCookieValue(request, cookieName);
+		return !"".equals(cookieValue);
+	}
+	
+	/**
+	 * 쿠키 유효기간 가져오기
+	 * @param request
+	 * @param cookieName
+	 */
+	public static int getCookieMaxAge(HttpServletRequest request, String cookieName) {
+		Cookie cookie = getCookie(request, cookieName);
+		return (cookie != null) ? cookie.getMaxAge() : 0; 
 	}
 
 }
